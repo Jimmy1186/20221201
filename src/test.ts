@@ -1,11 +1,18 @@
-import { filter, range } from "rxjs";
+import { Observable, filter, map, range } from "rxjs";
 
 export class testClass {
-    constructor(value:number){
-        range(1,value).pipe(
-            filter(x=>x%3===0)
+    constructor(action$:Observable<string>){
+        
+        action$.pipe(
+            filter(j=>j.includes("UPDATE"))
         ).subscribe(v=>{
-            console.log(v)
+            console.log("1:action")
+        })
+
+        action$.pipe(
+            filter(v=>v.includes("MISSION"))
+        ).subscribe(v=>{
+            console.log("2:action")
         })
     }
 }
